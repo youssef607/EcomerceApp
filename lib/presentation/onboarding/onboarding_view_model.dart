@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:heleapp/domain/model.dart';
+import 'package:heleapp/domain/model/model.dart';
 import 'package:heleapp/presentation/base/baseviewmodel.dart';
 import 'package:heleapp/presentation/resources/assets_manager.dart';
 import 'package:heleapp/presentation/resources/strings_manager.dart';

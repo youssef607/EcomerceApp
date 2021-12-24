@@ -1,6 +1,6 @@
 import 'package:heleapp/app/extensions.dart';
 import 'package:heleapp/data/responses/responses.dart';
-import 'package:heleapp/domain/model.dart';
+import 'package:heleapp/domain/model/model.dart';
 
 const EMPTY = "";
 const ZERO = 0;
