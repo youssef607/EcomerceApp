@@ -12,6 +12,7 @@ import 'package:lottie/lottie.dart';
 enum StateRendererType {
   POPUP_LOADING_STATE,
   POPUP_ERROR_STATE,
+  POPUP_SUCCESS,
 
   //full  screen
   FULL_SCREEN_LOADING_STATE,
@@ -52,6 +53,13 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
           _getRetryButton(AppStrings.ok, context),
+        ]);
+      case StateRendererType.POPUP_SUCCESS:
+        return _getPopUpDialogue(context, [
+          _getAnimatedImage(JsonAssets.success),
+          _getMessage(title),
+          _getMessage(message),
+          _getRetryButton(AppStrings.ok, context)
         ]);
 
       case StateRendererType.FULL_SCREEN_LOADING_STATE:

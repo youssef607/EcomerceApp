@@ -7,8 +7,13 @@ import 'package:heleapp/data/network/dio_factory.dart';
 import 'package:heleapp/data/network/network_info.dart';
 import 'package:heleapp/data/repository/repository_impl.dart';
 import 'package:heleapp/domain/repository/repository.dart';
+import 'package:heleapp/domain/usecase/forgot_password_usecase.dart';
 import 'package:heleapp/domain/usecase/login_usecase.dart';
+import 'package:heleapp/domain/usecase/register_usecase.dart';
+import 'package:heleapp/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:heleapp/presentation/login/login_viewmodel.dart';
+import 'package:heleapp/presentation/register/register_viewmodel.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
@@ -47,5 +52,25 @@ initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+}
+
+initForgotPasswordModule() {
+  if (!GetIt.I.isRegistered<ForgotPasswordUseCase>()) {
+    instance.registerFactory<ForgotPasswordUseCase>(
+        () => ForgotPasswordUseCase(instance()));
+    instance.registerFactory<ForgotPasswordViewModel>(
+        () => ForgotPasswordViewModel(instance()));
+  }
+}
+
+initRegisterModule() {
+  if (!GetIt.I.isRegistered<RegisterUseCase>()) {
+    instance
+        .registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
+    instance.registerFactory<RegisterViewModel>(
+        () => RegisterViewModel(instance()));
+
+    instance.registerFactory<ImagePicker>(() => ImagePicker());
   }
 }

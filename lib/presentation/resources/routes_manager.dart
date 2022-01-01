@@ -30,8 +30,11 @@ class RouteGenerator {
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => OnBoardingView());
       case Routes.registerRoute:
+        initRegisterModule();
         return MaterialPageRoute(builder: (_) => RegisterView());
       case Routes.forgotPasswordRoute:
+        initForgotPasswordModule();
+
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => MainView());

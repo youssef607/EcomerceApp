@@ -55,8 +55,6 @@ class ErrorHandler implements Exception {
             return DataSource.DEFAULT.getFailure();
         }
 
-        break;
-
       case DioErrorType.cancel:
         return DataSource.CANCEL.getFailure();
 

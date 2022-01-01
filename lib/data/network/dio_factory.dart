@@ -11,18 +11,21 @@ const String AUTHORISATION = "Authorisation";
 const String DEFAULT_LANGUAGE = "language";
 
 class DioFactory {
-  AppPrefrences _appPrefrences;
-  DioFactory(this._appPrefrences);
+  AppPrefrences _appPreferences;
+
+  DioFactory(this._appPreferences);
+
   Future<Dio> getDio() async {
     Dio dio = Dio();
-    int _timeOut = 60 * 1000;
-    String language = await _appPrefrences.getAppLanguage();
+    int _timeOut = 60 * 1000; // 1 min
+    String language = await _appPreferences.getAppLanguage();
     Map<String, String> headers = {
       CONTENT_TYPE: APPLICATION_JSON,
       ACCEPT: APPLICATION_JSON,
       AUTHORISATION: Constant.token,
-      DEFAULT_LANGUAGE: language,
+      DEFAULT_LANGUAGE: language
     };
+
     dio.options = BaseOptions(
         baseUrl: Constant.baseUrl,
         connectTimeout: _timeOut,
@@ -35,6 +38,7 @@ class DioFactory {
       dio.interceptors.add(PrettyDioLogger(
           requestHeader: true, requestBody: true, responseHeader: true));
     }
+
     return dio;
   }
 }

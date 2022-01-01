@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heleapp/app/app_prefs.dart';
+import 'package:heleapp/app/di.dart';
 import 'package:heleapp/domain/model/model.dart';
 import 'package:heleapp/presentation/onboarding/onboarding_view_model.dart';
 import 'package:heleapp/presentation/resources/Color_Manager.dart';
@@ -19,8 +21,10 @@ class OnBoardingView extends StatefulWidget {
 class _OnBoardingViewState extends State<OnBoardingView> {
   PageController _pageController = PageController(initialPage: 0);
   OnBoardingViewModel _viewModel = OnBoardingViewModel();
+  AppPrefrences _appPrefrences = instance<AppPrefrences>();
 
   _bind() {
+    _appPrefrences.setOnBoardingScreenViewed();
     _viewModel.start();
   }
 

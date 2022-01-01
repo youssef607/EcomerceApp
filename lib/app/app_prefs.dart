@@ -2,6 +2,8 @@ import 'package:heleapp/presentation/resources/language_maager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
+const String PREFS_KEY_ONBOARDING_SCREEN = "PREFS_KEY_ONBOARDING_SCREEN";
+const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 
 class AppPrefrences {
   SharedPreferences _sharedPreferences;
@@ -13,5 +15,21 @@ class AppPrefrences {
     } else {
       return LanguageType.ENGLISH.getValue();
     }
+  }
+
+  Future<void> setOnBoardingScreenViewed() async {
+    _sharedPreferences.setBool(PREFS_KEY_ONBOARDING_SCREEN, true);
+  }
+
+  Future<bool> isOnBoardingScreenViewed() async {
+    return _sharedPreferences.getBool(PREFS_KEY_ONBOARDING_SCREEN) ?? false;
+  }
+
+  Future<void> setIsUserLoggedIn() async {
+    _sharedPreferences.setBool(PREFS_KEY_IS_USER_LOGGED_IN, true);
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    return _sharedPreferences.getBool(PREFS_KEY_IS_USER_LOGGED_IN) ?? false;
   }
 }
