@@ -40,14 +40,14 @@ extension ServiceResponseMapper on ServiceResponse? {
   }
 }
 
-extension StoreResponseMapper on StoresResponse? {
+extension StoreResponseMapper on StoreResponse? {
   Store toDomain() {
     return Store(this?.id?.orZero() ?? ZERO, this?.title?.orEmpty() ?? EMPTY,
         this?.image?.orEmpty() ?? EMPTY);
   }
 }
 
-extension BannerResponseMapper on BannersResponse? {
+extension BannerResponseMapper on BannerResponse? {
   BannerAd toDomain() {
     return BannerAd(this?.id?.orZero() ?? ZERO, this?.title?.orEmpty() ?? EMPTY,
         this?.image?.orEmpty() ?? EMPTY, this?.link?.orEmpty() ?? EMPTY);
@@ -56,20 +56,19 @@ extension BannerResponseMapper on BannersResponse? {
 
 extension HomeResponseMapper on HomeResponse? {
   HomeObject toDomain() {
+    List<Store> mappedStores =
+        (this?.data?.stores?.map((store) => store.toDomain()) ??
+                Iterable.empty())
+            .cast<Store>()
+            .toList();
     List<Service> mappedServices =
         (this?.data?.services?.map((service) => service.toDomain()) ??
                 Iterable.empty())
             .cast<Service>()
             .toList();
 
-    List<Store> mappedStores =
-        (this?.data?.stores?.map((store) => store.toDomain()) ??
-                Iterable.empty())
-            .cast<Store>()
-            .toList();
-
     List<BannerAd> mappedBanners =
-        (this?.data?.stores?.map((bannerAd) => bannerAd.toDomain()) ??
+        (this?.data?.banners?.map((bannerAd) => bannerAd.toDomain()) ??
                 Iterable.empty())
             .cast<BannerAd>()
             .toList();

@@ -1,62 +1,66 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:heleapp/domain/model/model.dart';
 import 'package:heleapp/domain/usecase/home_usecase.dart';
 import 'package:heleapp/presentation/base/baseviewmodel.dart';
+import 'package:heleapp/presentation/common/state_rendrer/state_renderer_impl.dart';
+import 'package:heleapp/presentation/common/state_rendrer/state_rendrer.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HomeViewModel extends BaseViewModel
     with HomeViewModelInputs, HomeViewModelOutputs {
   HomeUseCase _homeUseCase;
-  StreamController _bannersStreamController = BehaviorSubject<List<BannerAd>>();
-  StreamController _serviceStreamController = BehaviorSubject<List<Service>>();
-  StreamController _storeStreamController = BehaviorSubject<List<Store>>();
+
+  final _dataStreamController = BehaviorSubject<HomeViewObject>();
 
   HomeViewModel(this._homeUseCase);
 
+  // inputs
   @override
-  void start() {}
+  void start() {
+    _getHome();
+  }
+
+  _getHome() async {
+    inputState.add(LoadingState(
+        stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
+
+    (await _homeUseCase.execute(Void)).fold((failure) {
+      inputState.add(ErrorState(
+          StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
+    }, (homeObject) {
+      inputState.add(ContentState());
+      inputHomeData.add(HomeViewObject(homeObject.data.stores,
+          homeObject.data.services, homeObject.data.banners));
+    });
+  }
 
   @override
   void dispose() {
-    _bannersStreamController.close();
-    _serviceStreamController.close();
-    _storeStreamController.close();
+    _dataStreamController.close();
     super.dispose();
   }
 
-//inputs
-  @override
-  Sink get inputBanners => _bannersStreamController.sink;
+  Sink get inputHomeData => _dataStreamController.sink;
 
-  @override
-  Sink get inputServices => _serviceStreamController.sink;
-
-  @override
-  Sink get inputStores => _storeStreamController.sink;
-
-//Outputs
-  @override
-  // TODO: implement outputBanners
-  Stream<List<BannerAd>> get outputBanners => throw UnimplementedError();
-
-  @override
-  // TODO: implement outputServices
-  Stream<List<Service>> get outputServices => throw UnimplementedError();
-
-  @override
-  // TODO: implement outputStores
-  Stream<List<Store>> get outputStores => throw UnimplementedError();
+  // outputs
+  Stream<HomeViewObject> get outputHomeData =>
+      _dataStreamController.stream.map((data) => data);
 }
 
 abstract class HomeViewModelInputs {
-  Sink get inputStores;
-  Sink get inputServices;
-  Sink get inputBanners;
+  Sink get inputHomeData;
 }
 
 abstract class HomeViewModelOutputs {
-  Stream<List<Store>> get outputStores;
-  Stream<List<Service>> get outputServices;
-  Stream<List<BannerAd>> get outputBanners;
+  Stream<HomeViewObject> get outputHomeData;
+}
+
+class HomeViewObject {
+  List<Store> stores;
+  List<Service> services;
+  List<BannerAd> banners;
+
+  HomeViewObject(this.stores, this.services, this.banners);
 }

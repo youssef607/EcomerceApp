@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   analyzer: ^1.7.0
+  carousel_slider: ^4.0.0
   country_code_picker: ^2.0.2
   dartz: ^0.10.1
   data_connection_checker: ^0.3.4

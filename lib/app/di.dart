@@ -1,6 +1,7 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:heleapp/app/app_prefs.dart';
+import 'package:heleapp/data/data_source/local_data_source.dart';
 import 'package:heleapp/data/data_source/remote_data_source.dart';
 import 'package:heleapp/data/network/app_api.dart';
 import 'package:heleapp/data/network/dio_factory.dart';
@@ -8,10 +9,12 @@ import 'package:heleapp/data/network/network_info.dart';
 import 'package:heleapp/data/repository/repository_impl.dart';
 import 'package:heleapp/domain/repository/repository.dart';
 import 'package:heleapp/domain/usecase/forgot_password_usecase.dart';
+import 'package:heleapp/domain/usecase/home_usecase.dart';
 import 'package:heleapp/domain/usecase/login_usecase.dart';
 import 'package:heleapp/domain/usecase/register_usecase.dart';
 import 'package:heleapp/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:heleapp/presentation/login/login_viewmodel.dart';
+import 'package:heleapp/presentation/main/home/home_viewmodel.dart';
 import 'package:heleapp/presentation/register/register_viewmodel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,11 +44,14 @@ Future<void> initAppModule() async {
   //remote data source
   instance.registerLazySingleton<RemoteDateSource>(
       () => RemoteDataSourceImplementer(instance()));
+  //local data source
+  instance.registerLazySingleton<LocalDataSource>(
+      () => LocalDataSourceImplementer());
 
   //repository
 
   instance.registerLazySingleton<Repository>(
-      () => RepositoryImp(instance(), instance()));
+      () => RepositoryImp(instance(), instance(), instance()));
 }
 
 initLoginModule() {
@@ -72,5 +78,12 @@ initRegisterModule() {
         () => RegisterViewModel(instance()));
 
     instance.registerFactory<ImagePicker>(() => ImagePicker());
+  }
+}
+
+initHomeModule() {
+  if (!GetIt.I.isRegistered<HomeUseCase>()) {
+    instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
+    instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
   }
 }
