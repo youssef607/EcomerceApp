@@ -9,6 +9,7 @@ import 'package:heleapp/presentation/resources/assets_manager.dart';
 import 'package:heleapp/presentation/resources/routes_manager.dart';
 import 'package:heleapp/presentation/resources/strings_manager.dart';
 import 'package:heleapp/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginView extends StatefulWidget {
   LoginView({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _LoginViewState extends State<LoginView> {
     _viewModel.isUserLoggedInSuccessfullyStreamController.stream
         .listen((isSeccessLoggesIn) {
       SchedulerBinding.instance?.addPostFrameCallback((_) {
-        _appPrefrences.isUserLoggedIn();
+        _appPrefrences.setIsUserLoggedIn();
         Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
       });
     });
@@ -85,11 +86,11 @@ class _LoginViewState extends State<LoginView> {
                         controller: _userNameController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                            hintText: AppStrings.username,
-                            labelText: AppStrings.username,
+                            hintText: AppStrings.username.tr(),
+                            labelText: AppStrings.username.tr(),
                             errorText: (snapshot.data ?? true)
                                 ? null
-                                : AppStrings.usernameError),
+                                : AppStrings.usernameError.tr()),
                       );
                     },
                   ),
@@ -107,11 +108,11 @@ class _LoginViewState extends State<LoginView> {
                         controller: _passwordController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                            hintText: AppStrings.password,
-                            labelText: AppStrings.password,
+                            hintText: AppStrings.password.tr(),
+                            labelText: AppStrings.password.tr(),
                             errorText: (snapshot.data ?? true)
                                 ? null
-                                : AppStrings.passwordError),
+                                : AppStrings.passwordError.tr()),
                       );
                     },
                   ),
@@ -134,7 +135,7 @@ class _LoginViewState extends State<LoginView> {
                                       _viewModel.login();
                                     }
                                   : null,
-                              child: Text(AppStrings.login)),
+                              child: Text(AppStrings.login.tr())),
                         );
                       },
                     )),
@@ -157,7 +158,7 @@ class _LoginViewState extends State<LoginView> {
                           child: Text(
                             AppStrings.forgetPassword,
                             style: Theme.of(context).textTheme.subtitle2,
-                          ),
+                          ).tr(),
                         ),
                       ),
                       TextButton(
@@ -170,7 +171,7 @@ class _LoginViewState extends State<LoginView> {
                           child: Text(
                             AppStrings.registerText,
                             style: Theme.of(context).textTheme.subtitle2,
-                          ),
+                          ).tr(),
                         ),
                       ),
                     ],

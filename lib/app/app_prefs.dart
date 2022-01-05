@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:heleapp/presentation/resources/language_maager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,13 +10,36 @@ const String PREFS_KEY_IS_USER_LOGGED_IN = "PREFS_KEY_IS_USER_LOGGED_IN";
 
 class AppPrefrences {
   SharedPreferences _sharedPreferences;
+
   AppPrefrences(this._sharedPreferences);
+
   Future<String> getAppLanguage() async {
     String? language = _sharedPreferences.getString(PREFS_KEY_LANG);
+
     if (language != null && language.isNotEmpty) {
       return language;
     } else {
       return LanguageType.ENGLISH.getValue();
+    }
+  }
+
+  Future<void> setLanguageChanged() async {
+    String currentLanguage = await getAppLanguage();
+    if (currentLanguage == LanguageType.ARABIC.getValue()) {
+      _sharedPreferences.setString(
+          PREFS_KEY_LANG, LanguageType.ENGLISH.getValue());
+    } else {
+      _sharedPreferences.setString(
+          PREFS_KEY_LANG, LanguageType.ARABIC.getValue());
+    }
+  }
+
+  Future<Locale> getLocal() async {
+    String currentLanguage = await getAppLanguage();
+    if (currentLanguage == LanguageType.ARABIC.getValue()) {
+      return ARABIC_LOCAL;
+    } else {
+      return ENGLISH_LOCAL;
     }
   }
 
@@ -31,5 +57,9 @@ class AppPrefrences {
 
   Future<bool> isUserLoggedIn() async {
     return _sharedPreferences.getBool(PREFS_KEY_IS_USER_LOGGED_IN) ?? false;
+  }
+
+  Future<void> logout() async {
+    _sharedPreferences.remove(PREFS_KEY_IS_USER_LOGGED_IN);
   }
 }

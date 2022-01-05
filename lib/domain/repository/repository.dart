@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:heleapp/data/network/failure.dart';
 import 'package:heleapp/data/request/request.dart';
-import 'package:heleapp/data/responses/responses.dart';
 import 'package:heleapp/domain/model/model.dart';
 
 abstract class Repository {
@@ -12,4 +11,5 @@ abstract class Repository {
       RegisterRequest loginRequest);
 
   Future<Either<Failure, HomeObject>> getHome();
+  Future<Either<Failure, StoreDetails>> getStoreDetails();
 }

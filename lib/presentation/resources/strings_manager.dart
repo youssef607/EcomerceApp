@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String noRouteFound = "Undfined Route";
+  static const String noRouteFound = "no_route_found";
   static const String onBoardingTitle1 = "on_boarding_title1";
   static const String onBoardingTitle2 = "on_boarding_title2";
   static const String onBoardingTitle3 = "on_boarding_title3";
@@ -10,12 +10,11 @@ class AppStrings {
   static const String onBoardingSubTitle3 = "on_boarding_desc3";
   static const String onBoardingSubTitle4 = "on_boarding_desc4";
   static const String skip = "skip";
-
-  static const String username = "username";
+  static const String username = "username_hint";
   static const String mobileNumber = "mobile_number_hint";
   static const String usernameError = "invalid_user_name";
   static const String passwordError = "invalid_password";
-  static const String password = "password";
+  static const String password = "password_hint";
   static const String login = "login_button";
   static const String forgetPassword = "forgot_password_text";
   static const String registerText = "register_text";

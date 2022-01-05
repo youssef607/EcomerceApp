@@ -7,6 +7,7 @@ import 'package:heleapp/presentation/resources/assets_manager.dart';
 import 'package:heleapp/presentation/resources/strings_manager.dart';
 import 'package:heleapp/presentation/resources/values_manager.dart';
 import 'forgot_password_viewmodel.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({Key? key}) : super(key: key);
@@ -75,11 +76,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailTextEditingController,
                       decoration: InputDecoration(
-                          hintText: AppStrings.emailHint,
-                          labelText: AppStrings.emailHint,
+                          hintText: AppStrings.emailHint.tr(),
+                          labelText: AppStrings.emailHint.tr(),
                           errorText: (snapshot.data ?? true)
                               ? null
-                              : AppStrings.invalidEmail),
+                              : AppStrings.invalidEmail.tr()),
                     );
                   },
                 ),
@@ -100,7 +101,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           onPressed: (snapshot.data ?? false)
                               ? () => _viewModel.forgotPassword()
                               : null,
-                          child: const Text(AppStrings.resetPassword)),
+                          child: const Text(AppStrings.resetPassword).tr()),
                     );
                   },
                 ),

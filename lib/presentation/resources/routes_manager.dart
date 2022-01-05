@@ -8,6 +8,8 @@ import 'package:heleapp/presentation/register/register.dart';
 import 'package:heleapp/presentation/resources/strings_manager.dart';
 import 'package:heleapp/presentation/splash/splash.dart';
 import 'package:heleapp/presentation/store_details/store_details.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class Routes {
   static const String splashRoute = "/";
@@ -39,6 +41,8 @@ class RouteGenerator {
         initHomeModule();
         return MaterialPageRoute(builder: (_) => MainView());
       case Routes.storeDeyailsRoute:
+        initStoreDetailsModule();
+
         return MaterialPageRoute(builder: (_) => StoreDetailsView());
       default:
         return UndefinedRoute();
@@ -49,9 +53,9 @@ class RouteGenerator {
     return MaterialPageRoute(
         builder: (_) => Scaffold(
               appBar: AppBar(
-                title: Text(AppStrings.noRouteFound),
+                title: Text(AppStrings.noRouteFound).tr(),
               ),
-              body: Text(AppStrings.noRouteFound),
+              body: Text(AppStrings.noRouteFound.tr()),
             ));
   }
 }

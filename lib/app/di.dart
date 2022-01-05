@@ -12,10 +12,12 @@ import 'package:heleapp/domain/usecase/forgot_password_usecase.dart';
 import 'package:heleapp/domain/usecase/home_usecase.dart';
 import 'package:heleapp/domain/usecase/login_usecase.dart';
 import 'package:heleapp/domain/usecase/register_usecase.dart';
+import 'package:heleapp/domain/usecase/store_details_usecase.dart';
 import 'package:heleapp/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:heleapp/presentation/login/login_viewmodel.dart';
 import 'package:heleapp/presentation/main/home/home_viewmodel.dart';
 import 'package:heleapp/presentation/register/register_viewmodel.dart';
+import 'package:heleapp/presentation/store_details/store_details_viewmodel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -85,5 +87,14 @@ initHomeModule() {
   if (!GetIt.I.isRegistered<HomeUseCase>()) {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
     instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
+  }
+}
+
+initStoreDetailsModule() {
+  if (!GetIt.I.isRegistered<StoreDetailsUseCase>()) {
+    instance.registerFactory<StoreDetailsUseCase>(
+        () => StoreDetailsUseCase(instance()));
+    instance.registerFactory<StoreDetailsViewModel>(
+        () => StoreDetailsViewModel(instance()));
   }
 }

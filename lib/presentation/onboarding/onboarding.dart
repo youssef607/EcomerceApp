@@ -10,6 +10,7 @@ import 'package:heleapp/presentation/resources/assets_manager.dart';
 import 'package:heleapp/presentation/resources/routes_manager.dart';
 import 'package:heleapp/presentation/resources/strings_manager.dart';
 import 'package:heleapp/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OnBoardingView extends StatefulWidget {
   OnBoardingView({Key? key}) : super(key: key);
@@ -87,7 +88,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     AppStrings.skip,
                     style: Theme.of(context).textTheme.subtitle2,
                     textAlign: TextAlign.end,
-                  ),
+                  ).tr(),
                 ),
               ),
               _getBottomSheetWidget(sliderViewObject)
